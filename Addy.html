@@ -1,0 +1,155 @@
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet"> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	<style>
+		body {
+			font-family: 'Karla', sans-serif;
+			font-weight: bold;
+		}
+		.number {
+			margin: 25px;
+			display: inline-block;
+			width: 300px;
+			height: 300px;
+			font-size: 50px;
+			text-align: center;
+			vertical-align: middle;
+			line-height: 300px;
+			border-radius: 30px;
+			color: white;
+		}
+		
+		.times {
+			margin: 25px;
+			display: inline-block;
+			width: 50px;
+			height: 300px;
+			font-size: 50px;
+			text-align: center;
+			vertical-align: middle;
+			line-height: 300px;
+			border-radius: 30px;
+		}
+		
+		input {
+			display: inline-block;
+			border: none;
+			border-bottom: 3px solid lightgrey;
+			font-size: 50px;
+			width: 100px;
+			display: block;
+			margin: 25px 0 0 130px;
+			text-align: center;
+		}
+		
+		.button {
+			display: inline-block;
+			margin: 25px 0 0 103px;
+			width: 150px;
+			height: 100px;
+			background-color: #008000;
+			color: white;
+			border-radius: 30px;
+			text-align: center;
+			line-height: 100px;
+			font-size: 30px;
+			cursor: pointer;
+		}
+		
+		.message {
+			display: inline-block;
+			margin-left: 25px;
+			line-height: 100px;
+			font-size: 50px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1 style="padding: 25px;">Adeline's Multiplication Practice!</h1>
+	<div class="number" id="one"></div>
+	<div class="times">X</div>
+	<div class="number" id="two"></div>
+	<div>
+		<input type="text" id="answer" onkeypress="keyPress(event);"></input>
+		<div class="button" onclick="submit();">SUBMIT</div>
+		<div class="message" id="result"></div>
+		
+	</div>
+</body>
+
+<script>
+
+var v_1 = 0;
+var v_2 = 0;
+var res = document.getElementById("result");
+var ans = document.getElementById("answer");
+var newProb = false;
+
+var colors = [
+	"#ffc0cb",
+	"#008080",
+	"#ff7373",
+	"#ffa500",
+	"#800000",
+	"#333333",
+	"#333333",
+	"#c0c0c0",
+	"#468499",
+	"#8b0000",
+	"#660066",
+	"#6dc066"
+]
+
+
+newProblem();
+
+function newProblem() {
+	newProb = false;
+	res.innerHTML = "";
+	ans.value = "";
+	ans.focus();
+	
+	v_1 = Math.floor((Math.random() * 12) + 1);
+	v_2 = Math.floor((Math.random() * 12) + 1);
+	
+	if (v_1 < 1) v_1 = 1;
+	if (v_1 > 12) v_1 = 12;
+	if (v_2 < 1) v_2 = 1;
+	if (v_2 > 12) v_2 = 12;
+
+	one = document.getElementById("one");
+	two = document.getElementById("two");
+	
+	one.innerHTML = v_1;
+	two.innerHTML = v_2;
+	
+	one.style = "background-color: "+colors[v_1-1];
+	two.style = "background-color: "+colors[v_2-1];
+}
+
+function submit() {
+	if (newProb) return;
+	var answer = ans.value;
+	
+	if (answer == v_1 * v_2) {
+		newProb = true;
+		res.innerHTML = "Great!";
+		res.style = "color: #008000;";
+		setTimeout(function() {newProblem()}, 1500);
+	} else {
+		res.innerHTML = "Try again.";
+		res.style = "color: #cc0000;";
+		newProb = false;
+	}
+}
+
+function keyPress(e) {
+	if (e.keyCode == 13) {
+		submit();
+	}
+}
+	
+</script>
+</html>
